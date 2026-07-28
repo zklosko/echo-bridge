@@ -1,0 +1,19 @@
+{
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": [".*rc"],
+      "excludeFiles": [".nvmrc"],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": [".changeset/**/*", "CHANGELOG.md"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
