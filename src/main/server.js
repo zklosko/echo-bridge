@@ -13,7 +13,7 @@ import {
   buildSyncGetReply,
   buildSpaceDumpLines,
 } from './reply-builder.js';
-import { isValidIPv4, isValidPort } from '../main/utilities/validate.js';
+import { isValidIPv4, isValidPort } from './validate.js';
 
 export class EchoServer extends EventEmitter {
   #socket;

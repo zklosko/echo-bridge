@@ -1,5 +1,5 @@
 <script>
-    import { isValidIPv4, isValidPort } from '../../main/utilities/validate.js'
+    import { isValidIPv4, isValidPort } from '../../main/validate.js'
     const settings = $state({ port: 8001, eom: '\r\n' })
     const status = $state({ text: '' })
 
