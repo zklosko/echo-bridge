@@ -1,7 +1,8 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EchoServer } from './server.js';
+import { template } from './menu.js';
 import {
   getSettings,
   setPort,
@@ -46,6 +47,9 @@ function createWindow() {
 app.whenReady().then(() => {
   const { port, eom } = getSettings();
   const subscribers = getSubscribers();
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 
   host = new EchoServer({ listenPort: port, eom: eom, subscribers });
 
