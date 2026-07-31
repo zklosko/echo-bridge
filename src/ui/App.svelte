@@ -85,7 +85,7 @@
       <div class="status">Last update: {lastUpdated.text}</div>
     </div>
 
-    <PacketLog logs={log.entries} />
+    <PacketLog logs={log.entries} onClear={() => (log.entries = [])}/>
 
   </div>
 </main>

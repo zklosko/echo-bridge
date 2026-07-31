@@ -93,28 +93,102 @@ h1 span {
   background: var(--bg);
   border: 1px solid var(--border);
 }
-.log-entry {
+/* PacketLog */
+.log-panel {
   display: flex;
-  gap: 8px;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12.5px;
-  white-space: pre-wrap;
-  word-break: break-all;
+  flex-direction: column;
+  max-height: 480px;
 }
-.log-entry:last-child {
-  border-bottom: none;
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.clear-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.clear-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.log-body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.log-entry {
+  border-bottom: 1px solid var(--border);
+}
+.log-entry-head {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 4px;
+  font-size: 12.5px;
+  cursor: default;
+  box-sizing: border-box;
+}
+.log-entry.multiline .log-entry-head {
+  cursor: pointer;
+}
+.log-entry.multiline .log-entry-head:hover {
+  background: rgba(255,255,255,0.03)
 }
 .dir {
   flex-shrink: 0;
   width: 24px;
   font-weight: 600;
+  text-align: center;
 }
 .dir.rx {
   color: var(--rx);
 }
 .dir.tx {
   color: var(--tx);
+}
+.time{
+  flex-shrink: 0;
+  color: var(--muted)
+}
+.raw{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.line-count{
+  color: var(--muted);
+  font-size: 11px;
+}
+.chevron{
+  margin-left: auto;
+  color: var(--muted);
+  transition: transform 0.15s;
+}
+.chevron.open {
+  transform: rotate(90deg);
+}
+.log-entry-body {
+  padding: 2px 4px 8px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.log-line {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 .log-panel {
   max-height: 480px;
