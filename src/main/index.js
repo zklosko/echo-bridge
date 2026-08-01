@@ -48,8 +48,8 @@ app.whenReady().then(() => {
   const { port, eom } = getSettings();
   const subscribers = getSubscribers();
 
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 
   host = new EchoServer({ listenPort: port, eom: eom, subscribers });
 

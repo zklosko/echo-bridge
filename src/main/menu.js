@@ -1,31 +1,31 @@
-import { shell } from 'electron/common'
-import { app } from 'electron'
+import { shell } from 'electron/common';
+import { app } from 'electron';
 
-const isMac = process.platform === 'darwin'
+const isMac = process.platform === 'darwin';
 export const template = [
   // { role: 'appMenu' }
   ...(isMac
-    ? [{
-        label: app.name,
-        submenu: [
-          { role: 'about' },
-          { type: 'separator' },
-          { role: 'services' },
-          { type: 'separator' },
-          { role: 'hide' },
-          { role: 'hideOthers' },
-          { role: 'unhide' },
-          { type: 'separator' },
-          { role: 'quit' }
-        ]
-      }]
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            { role: 'about' },
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideOthers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' },
+          ],
+        },
+      ]
     : []),
   // { role: 'fileMenu' }
   {
     label: 'File',
-    submenu: [
-      isMac ? { role: 'close' } : { role: 'quit' }
-    ]
+    submenu: [isMac ? { role: 'close' } : { role: 'quit' }],
   },
   // { role: 'editMenu' }
   {
@@ -45,18 +45,11 @@ export const template = [
             { type: 'separator' },
             {
               label: 'Speech',
-              submenu: [
-                { role: 'startSpeaking' },
-                { role: 'stopSpeaking' }
-              ]
-            }
+              submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }],
+            },
           ]
-        : [
-            { role: 'delete' },
-            { type: 'separator' },
-            { role: 'selectAll' }
-          ])
-    ]
+        : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }]),
+    ],
   },
   // { role: 'viewMenu' }
   {
@@ -67,26 +60,26 @@ export const template = [
       { role: 'resetZoom' },
       { role: 'zoomIn' },
       { role: 'zoomOut' },
-    ]
+    ],
   },
   // { role: 'windowMenu' }
-//   {
-//     label: 'Window',
-//     submenu: [
-//       { role: 'minimize' },
-//       { role: 'zoom' },
-//       ...(isMac
-//         ? [
-//             { type: 'separator' },
-//             { role: 'front' },
-//             { type: 'separator' },
-//             { role: 'window' }
-//           ]
-//         : [
-//             { role: 'close' }
-//           ])
-//     ]
-//   },
+  //   {
+  //     label: 'Window',
+  //     submenu: [
+  //       { role: 'minimize' },
+  //       { role: 'zoom' },
+  //       ...(isMac
+  //         ? [
+  //             { type: 'separator' },
+  //             { role: 'front' },
+  //             { type: 'separator' },
+  //             { role: 'window' }
+  //           ]
+  //         : [
+  //             { role: 'close' }
+  //           ])
+  //     ]
+  //   },
   {
     role: 'help',
     submenu: [
@@ -94,10 +87,10 @@ export const template = [
       {
         label: 'Learn More',
         click: async () => {
-          const { shell } = require('electron')
-          await shell.openExternal('https://github.com/zklosko/echo-bridge')
-        }
-      }
-    ]
-  }
-]
+          const { shell } = require('electron');
+          await shell.openExternal('https://github.com/zklosko/echo-bridge');
+        },
+      },
+    ],
+  },
+];

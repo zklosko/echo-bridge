@@ -3,7 +3,6 @@ import dgram from 'node:dgram';
 import { EventEmitter } from 'node:events';
 import { createControllerState } from './state.js';
 import { parseCommand } from './protocol.js';
-import { splitCommands } from './buffer.js';
 import { FadeEngine } from './fade-engine.js';
 import {
   buildHelpReply,
@@ -14,6 +13,14 @@ import {
   buildSpaceDumpLines,
 } from './reply-builder.js';
 import { isValidIPv4, isValidPort } from './validate.js';
+
+function splitCommands(buffer, eom) {
+  return buffer
+    .toString('ascii')
+    .split(eom)
+    .map(s => s.trim())
+    .filter(Boolean);
+}
 
 export class EchoServer extends EventEmitter {
   #socket;
