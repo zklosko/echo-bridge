@@ -60,7 +60,6 @@
 
     <div class="panel">
       <h2>Space</h2>
-      <label>Select space
         <!-- Space picker dropdown -->
         <select bind:value={selectedSpace} onchange={() => refreshSpace()}>
           <!-- Create each option -->
@@ -68,13 +67,14 @@
             <option value={s + 1}>Space {s + 1}</option>
           {/each}
         </select>
-      </label>
-      <div class="space" style="margin-top: 12px;">
-        <div class="num">Space {selectedSpace}</div>
-        <div class="preset">{space.preset ?? '—'}</div>
+      <div class="space">
+        <div class="space-top">
+          <div class="num">Space {selectedSpace}</div>
+          <div class="preset">Preset: {space.preset || '—'}</div>
+        </div>
         <div class="zone-grid">
         <!-- Creates grid of zones -->
-          {#each Object.entries(space.zones) as [znum, level]} <!-- :key="znum" -->
+          {#each Object.entries(space.zones) as [znum, level] (znum)}
             <div class="zone"
                  title="Zone {znum}: {level}"
                  style={`background: rgba(232, 163, 61, ${level / 255})`}>
@@ -91,5 +91,67 @@
 </main>
 
 <style>
-    @import './style.css';
+  h1 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  h1 span {
+    color: var(--accent);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .space {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+  }
+  .space-top {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .zone-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .zone {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: rgba(232, 163, 61, var(--level, 0));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transition: background 0.15s ease;
+  }
+  .status {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 12px;
+  }
 </style>

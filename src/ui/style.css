@@ -4,13 +4,15 @@
   --border: #2a2e35;
   --text: #d8dbe0;
   --muted: #7b8190;
-  --accent: #e8a33d; /* dimmer-board amber */
+  --accent: #e8a33d;
   --rx: #4fb3a9;
   --tx: #e8a33d;
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -20,34 +22,8 @@ body {
   font-size: 14px;
   padding: 24px;
 }
-h1 {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0;
-}
-h1 span {
-  color: var(--accent);
-}
-.grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-}
+
+/* Shared by every panel-style container across components */
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -61,144 +37,8 @@ h1 span {
   color: var(--muted);
   margin: 0 0 12px;
 }
-.space-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-.space {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 8px;
-}
-.space .num {
-  color: var(--muted);
-  font-size: 11px;
-  text-align: center;
-}
-.space .preset {
-  font-size: 18px;
-  color: var(--accent);
-  text-align: center;
-  margin-bottom: 6px;
-}
-.zone-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
-}
-.zone {
-  aspect-ratio: 1;
-  border-radius: 2px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-}
-/* PacketLog */
-.log-panel {
-  display: flex;
-  flex-direction: column;
-  max-height: 480px;
-}
-.log-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.clear-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
-}
-.clear-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-.log-body {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.log-entry {
-  border-bottom: 1px solid var(--border);
-}
-.log-entry-head {
-  all: unset;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 6px 4px;
-  font-size: 12.5px;
-  cursor: default;
-  box-sizing: border-box;
-}
-.log-entry.multiline .log-entry-head {
-  cursor: pointer;
-}
-.log-entry.multiline .log-entry-head:hover {
-  background: rgba(255,255,255,0.03)
-}
-.dir {
-  flex-shrink: 0;
-  width: 24px;
-  font-weight: 600;
-  text-align: center;
-}
-.dir.rx {
-  color: var(--rx);
-}
-.dir.tx {
-  color: var(--tx);
-}
-.time{
-  flex-shrink: 0;
-  color: var(--muted)
-}
-.raw{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.line-count{
-  color: var(--muted);
-  font-size: 11px;
-}
-.chevron{
-  margin-left: auto;
-  color: var(--muted);
-  transition: transform 0.15s;
-}
-.chevron.open {
-  transform: rotate(90deg);
-}
-.log-entry-body {
-  padding: 2px 4px 8px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.log-line {
-  font-size: 12px;
-  color: var(--muted);
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-.log-panel {
-  max-height: 480px;
-  overflow-y: auto;
-}
-.status {
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 12px;
-}
+
+/* Shared modal/backdrop pattern — used by SettingsPanel and HelpPanel */
 .backdrop-close {
   position: absolute;
   inset: 0;
@@ -212,10 +52,8 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
-
   z-index: 1000;
 }
 .modal {
@@ -224,4 +62,21 @@ h1 span {
   background: #222;
   border-radius: 12px;
   padding: 2rem;
+}
+.icon-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+.icon-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }

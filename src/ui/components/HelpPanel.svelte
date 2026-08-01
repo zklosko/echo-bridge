@@ -26,7 +26,7 @@
 </script>
 
 <div>
-    <button class="help-btn" onclick={() => showHelp = !showHelp} title="Help">?</button>
+    <button class="icon-btn" onclick={() => showHelp = !showHelp} title="Help">?</button>
 
     {#if showHelp}
     <div class="backdrop">
@@ -44,3 +44,31 @@
     </div>
   {/if}
   </div>
+
+<style>
+  .modal {
+    max-width: 480px;
+  }
+  .modal h2 {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+  .modal p {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0 0 16px;
+  }
+
+  .help {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--text);
+  }
+  .help:last-child {
+    border-bottom: none;
+  }
+</style>
