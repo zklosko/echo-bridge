@@ -63,7 +63,7 @@ const COMMAND_PATTERNS = [
     parse: m => ({ type: 'seqGet', spaceId: Number(m[1]) }),
   },
   {
-    type: 'seqGet',
+    type: 'syncGet',
     regex: /^E\$sync get:\s*(\d+)$/,
     parse: m => ({ type: 'syncGet', spaceId: Number(m[1]) }), // 0 = all spaces
   },
