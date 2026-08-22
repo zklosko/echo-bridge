@@ -22,9 +22,27 @@ export function buildZoneIntGetReply(spaceId, state, eom) {
   return lines.join('');
 }
 
+/**
+ * Builds reply for space off get request
+ * @param {number} spaceId number id of space
+ * @param {*} state
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildOffGetReply(spaceId, state, eom) {
   const boolChar = state.isOff(spaceId) ? '1' : '0';
   return `${RESPONSE_PREFIX}space off: ${spaceId}, ${boolChar}${eom}`;
+}
+
+/**
+ * Builds reply for sequence status data (NOT COMPLETE)
+ * @param {number} spaceId number id of space
+ * @param {*} state
+ * @param {string} eom eom character
+ */
+export function buildSeqGetReply(spaceId, state, eom) {
+  const space = state.getSpace(spaceId);
+  // return `${RESPONSE_PREFIX}seq get: ${spaceId}`
 }
 
 export function buildSpaceDumpLines(spaceId, state, eom) {
@@ -37,6 +55,13 @@ export function buildSpaceDumpLines(spaceId, state, eom) {
   return lines.join('');
 }
 
+/**
+ * Builds sync reply when E$sync... is requested
+ * @param {number} spaceId number id of space (0 means get all spaces)
+ * @param {*} state
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildSyncGetReply(spaceId, state, eom) {
   const spaceIds =
     spaceId === 0 ? Array.from({ length: 16 }, (_, i) => i + 1) : [spaceId];
@@ -49,6 +74,11 @@ export function buildSyncGetReply(spaceId, state, eom) {
   return lines.join('');
 }
 
+/**
+ * Builds reply using help text when $>help{eom} is received
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildHelpReply(eom) {
   const lines = [
     'E$pst act: spc_num(1-16), pst_num(1-64), time',

@@ -1,7 +1,7 @@
 /**
  * Validates remote client IP address
  * @param {string} address
- * @returns
+ * @returns {boolean}
  */
 export function isValidIPv4(address) {
   const parts = address.split('.');
@@ -16,7 +16,7 @@ export function isValidIPv4(address) {
 /**
  * Validates remote client port
  * @param {Number} port
- * @returns
+ * @returns {boolean}
  */
 export function isValidPort(port) {
   return Number.isInteger(port) && port >= 1 && port <= 65535;

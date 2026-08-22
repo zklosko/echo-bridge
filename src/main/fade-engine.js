@@ -1,5 +1,8 @@
 const TICK_MS = 40; // ~25 updates/sec, needs tuning
 
+/**
+ * Fade engine: calculates zone intensity value over time for frontend display
+ */
 export class FadeEngine {
   #fades = new Map(); // Map<"spaceId:zoneId", Map<spaceId, zoneId, from, to, startTime, duration>>
   #timer = null;
@@ -11,6 +14,14 @@ export class FadeEngine {
     this.#onChange = onChange;
   }
 
+  /**
+   * Initial command to fade a zone's intensity
+   * @param {number} spaceId
+   * @param {number} zoneId
+   * @param {number} targetLevel
+   * @param {number} duration
+   * @returns
+   */
   requestZoneLevel(spaceId, zoneId, targetLevel, duration) {
     const key = `${spaceId}:${zoneId}`;
 
@@ -44,6 +55,11 @@ export class FadeEngine {
     this.#ensureTimerRunning();
   }
 
+  /**
+   * Fades all zones in a given space to 0, over a set period of time
+   * @param {number} spaceId
+   * @param {number} duration 0.0 - 25.4 seconds
+   */
   requestSpaceOff(spaceId, duration) {
     const space = this.#state.getSpace(spaceId);
     for (const zoneId of space.zones.keys()) {
@@ -51,12 +67,20 @@ export class FadeEngine {
     }
   }
 
+  /**
+   * Makes sure the timer is running
+   * @returns
+   */
   #ensureTimerRunning() {
     if (this.#timer) return;
     this.#timer = setInterval(() => this.#tick(), TICK_MS);
     this.#timer.unref?.(); // don't let this keep the process alive by itself
   }
 
+  /**
+   * Executes a single calculation cycle
+   * @returns
+   */
   #tick() {
     if (this.#fades.size === 0) {
       clearInterval(this.#timer);
@@ -83,6 +107,9 @@ export class FadeEngine {
     }
   }
 
+  /**
+   * Stops fading after timer expires
+   */
   stop() {
     if (this.#timer) {
       clearInterval(this.#timer);
