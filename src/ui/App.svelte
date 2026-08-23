@@ -49,7 +49,7 @@
 
 <main>
   <div class="header">
-    <h1>Echo Bridge <span>/dashboard</span></h1>
+    <h1><span>Echo Bridge</span></h1>
     <div class="header-actions">
       <SettingsPanel />
       <HelpPanel />

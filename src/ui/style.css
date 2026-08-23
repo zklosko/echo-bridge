@@ -45,6 +45,10 @@ body {
   background: transparent;
   border: 0;
   cursor: default;
+  outline: none;
+}
+.backdrop-close:hover {
+  border: 0;
 }
 .backdrop {
   position: fixed;
@@ -52,16 +56,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   z-index: 1000;
 }
 .modal {
   position: relative;
   z-index: 1;
-  background: #222;
+  background: #262b33;
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 .icon-btn {
   background: none;
