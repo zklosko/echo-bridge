@@ -1,18 +1,50 @@
+// All responses begin with 'E>'
 const RESPONSE_PREFIX = 'E>';
 
+/**
+ * Builds preset response after SET command
+ *
+ * (Can possibly be replaced with buildPstGetReply())
+ * @param {number} spaceId
+ * @param {number} presetId
+ * @param {string} eom
+ * @returns
+ */
 export function buildPstActLine(spaceId, presetId, eom) {
   return `${RESPONSE_PREFIX}pst act: ${spaceId}, ${presetId}${eom}`;
 }
 
+/**
+ * Builds each line of zone GET request
+ * @param {number} spaceId number id of space
+ * @param {number} zoneId number id of zone
+ * @param {number} level level (0 - 255)
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildZoneIntLine(spaceId, zoneId, level, eom) {
   return `${RESPONSE_PREFIX}zone int: ${spaceId}, ${zoneId}, ${level}${eom}`;
 }
 
+/**
+ * Builds preset GET reply
+ * @param {number} spaceId
+ * @param {*} state
+ * @param {string} eom
+ * @returns
+ */
 export function buildPstGetReply(spaceId, state, eom) {
   const space = state.getSpace(spaceId);
   return `${RESPONSE_PREFIX}pst get: ${spaceId}, ${space.preset}${eom}`;
 }
 
+/**
+ * Builds entirety of zone GET response
+ * @param {number} spaceId number id of space
+ * @param {*} state
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildZoneIntGetReply(spaceId, state, eom) {
   const space = state.getSpace(spaceId);
   const lines = [];
@@ -36,10 +68,10 @@ export function buildOffGetReply(spaceId, state, eom) {
 
 /**
  * Build response for a single sequence's status
- * @param {number} spaceId
- * @param {number} seqId
- * @param {boolean} active
- * @param {string} eom
+ * @param {number} spaceId number id of space
+ * @param {number} seqId number id of sequence
+ * @param {boolean} active has sequence been activated?
+ * @param {string} eom eom character
  * @returns
  */
 export function buildSeqActLine(spaceId, seqId, active, eom) {
@@ -61,7 +93,13 @@ export function buildSeqGetReply(spaceId, state, eom) {
   }
   return lines.join('');
 }
-
+/**
+ * Builds sync reply per space
+ * @param {number} spaceId number id of space
+ * @param {*} state
+ * @param {string} eom eom character
+ * @returns
+ */
 export function buildSpaceDumpLines(spaceId, state, eom) {
   const space = state.getSpace(spaceId);
   const lines = [buildPstActLine(spaceId, space.preset, eom)];
@@ -75,7 +113,7 @@ export function buildSpaceDumpLines(spaceId, state, eom) {
 }
 
 /**
- * Builds sync reply when E$sync... is requested
+ * Builds sync reply for specific or all spaces
  * @param {number} spaceId number id of space (0 means get all spaces)
  * @param {*} state
  * @param {string} eom eom character

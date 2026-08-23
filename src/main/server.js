@@ -15,6 +15,12 @@ import {
 } from './reply-builder.js';
 import { isValidIPv4, isValidPort } from './validate.js';
 
+/**
+ * Removes eom character from incoming command
+ * @param {string} buffer
+ * @param {string} eom
+ * @returns
+ */
 function splitCommands(buffer, eom) {
   return buffer
     .toString('ascii')
@@ -23,6 +29,9 @@ function splitCommands(buffer, eom) {
     .filter(Boolean);
 }
 
+/**
+ * Class representing the Echo Interface's transport server
+ */
 export class EchoServer extends EventEmitter {
   #socket;
   #eom;
@@ -43,6 +52,10 @@ export class EchoServer extends EventEmitter {
     for (const sub of subscribers) this.addSubscriber(sub.address, sub.port);
   }
 
+  /**
+   * Creates UDP server for both incoming and outgoing commands
+   * @param {number} port
+   */
   #bindSocket(port) {
     this.#socket = dgram.createSocket('udp4');
     this.#socket.on('message', (msg, rinfo) => this.#handleMessage(msg, rinfo));
@@ -61,6 +74,11 @@ export class EchoServer extends EventEmitter {
     this.#eom = value;
   }
 
+  /**
+   * Updates listen port for UDP server, then restarts server
+   * @param {number} port
+   * @returns
+   */
   updatePort(port) {
     return new Promise((res, reject) => {
       this.#socket.close(() => {
@@ -74,6 +92,11 @@ export class EchoServer extends EventEmitter {
     });
   }
 
+  /**
+   * Adds subscriber record to state
+   * @param {string} address
+   * @param {number} port
+   */
   addSubscriber(address, port) {
     if (!isValidIPv4(address)) {
       throw new Error(`Invalid IPv4 Address: ${address}`);
@@ -103,11 +126,20 @@ export class EchoServer extends EventEmitter {
     this.emit('subscribersChanged', this.listSubscribers());
   }
 
+  /**
+   * Removes subscriber record from state
+   * @param {string} address
+   * @param {number} port
+   */
   removeSubscriber(address, port) {
     this.#subscribers.delete(`${address}:${port}`);
     this.emit('subscribersChanged', this.listSubscribers());
   }
 
+  /**
+   * Lists subscriber records from state
+   * @returns string[] of subscribers
+   */
   listSubscribers() {
     return [...this.#subscribers.values()];
   }
@@ -129,6 +161,12 @@ export class EchoServer extends EventEmitter {
     this.#broadcastToSubscribers(spaceId);
   }
 
+  /**
+   * Emits event 'log' to update frontend when new data arrives
+   * @param {*} direction
+   * @param {string} raw
+   * @param {dgram.RemoteInfo} rinfo
+   */
   #log(direction, raw, rinfo) {
     this.emit('log', {
       direction,
@@ -153,6 +191,11 @@ export class EchoServer extends EventEmitter {
     }
   }
 
+  /**
+   * Runs appropriate callback for received command based on verb
+   * @param {*} command
+   * @param {dgram.RemoteInfo} rinfo
+   */
   #dispatch(command, rinfo) {
     switch (command.type) {
       case 'setPreset':
@@ -214,6 +257,9 @@ export class EchoServer extends EventEmitter {
     }
   }
 
+  /**
+   * Shuts down UDP server and fade engine
+   */
   close() {
     this.#fadeEngine.stop();
     this.#socket.close();
