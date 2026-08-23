@@ -35,14 +35,31 @@ export function buildOffGetReply(spaceId, state, eom) {
 }
 
 /**
- * Builds reply for sequence status data (NOT COMPLETE)
+ * Build response for a single sequence's status
+ * @param {number} spaceId
+ * @param {number} seqId
+ * @param {boolean} active
+ * @param {string} eom
+ * @returns
+ */
+export function buildSeqActLine(spaceId, seqId, active, eom) {
+  const boolChar = active ? '1' : '0';
+  return `${RESPONSE_PREFIX}seq act: ${spaceId}, ${seqId}, ${boolChar}${eom}`;
+}
+
+/**
+ * Builds reply for sequence status data
  * @param {number} spaceId number id of space
  * @param {*} state
  * @param {string} eom eom character
  */
 export function buildSeqGetReply(spaceId, state, eom) {
   const space = state.getSpace(spaceId);
-  // return `${RESPONSE_PREFIX}seq get: ${spaceId}`
+  const lines = [];
+  for (const [seqId, active] of space.sequences) {
+    lines.push(buildSeqActLine(spaceId, seqId, active, eom));
+  }
+  return lines.join('');
 }
 
 export function buildSpaceDumpLines(spaceId, state, eom) {
@@ -51,7 +68,9 @@ export function buildSpaceDumpLines(spaceId, state, eom) {
   for (const [zoneNum, level] of space.zones) {
     lines.push(buildZoneIntLine(spaceId, zoneNum, level, eom));
   }
-  // TODO sequence lines
+  for (const [seqId, active] of space.sequences) {
+    lines.push(buildSeqActLine(spaceId, seqId, active, eom));
+  }
   return lines.join('');
 }
 

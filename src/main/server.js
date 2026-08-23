@@ -11,6 +11,7 @@ import {
   buildZoneIntGetReply,
   buildSyncGetReply,
   buildSpaceDumpLines,
+  buildSeqGetReply,
 } from './reply-builder.js';
 import { isValidIPv4, isValidPort } from './validate.js';
 
@@ -170,10 +171,10 @@ export class EchoServer extends EventEmitter {
         );
         break;
       case 'seqActivate':
-        this.state.setSequenceActive(command.spaceId, command.seqId, true);
+        this.state.setSequence(command.spaceId, command.seqId, true);
         break;
       case 'seqDeactivate':
-        this.state.setSequenceActive(command.spaceId, command.seqId, false);
+        this.state.setSequence(command.spaceId, command.seqId, false);
         break;
       case 'presetGet':
         this.#reply(
@@ -200,7 +201,10 @@ export class EchoServer extends EventEmitter {
         );
         break;
       case 'seqGet':
-        // TODO once seq reply format is spec'd
+        this.#reply(
+          buildSeqGetReply(command.spaceId, this.state, this.#eom),
+          rinfo,
+        );
         break;
       case 'help':
         this.#reply(buildHelpReply(this.#eom), rinfo);

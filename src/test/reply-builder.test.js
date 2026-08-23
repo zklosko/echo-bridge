@@ -7,6 +7,7 @@ import {
   buildPstGetReply,
   buildZoneIntGetReply,
   buildSyncGetReply,
+  buildSeqGetReply,
 } from '../main/reply-builder.js';
 
 const EOM = '\r';
@@ -62,7 +63,7 @@ test('buildSyncGetReply for space 0 covers all 16 spaces', () => {
   const state = createControllerState();
   state.setPreset(1, 1);
   state.setPreset(16, 9);
-  console.log(JSON.stringify(reply)); // ADD THIS
+  const reply = buildSyncGetReply(0, state, EOM);
   assert.ok(reply.includes('E>pst act: 1, 1'));
   assert.ok(reply.includes('E>pst act: 16, 9'));
   // spaces with no data still get a line, just with preset 0
@@ -81,4 +82,23 @@ test('buildHelpReply returns the full command list with correct prefix', () => {
   assert.ok(reply.startsWith('Available commands:E$pst act:'));
   assert.ok(reply.includes(`E$help${EOM}`));
   assert.ok(reply.endsWith(`E$help${EOM}`));
+});
+
+test('buildSeqGetReply lists all 4 sequences for a space', () => {
+  const state = createControllerState();
+  state.setSequence(3, 2, true);
+  const reply = buildSeqGetReply(3, state, EOM);
+  const lines = reply.split(EOM).filter(Boolean);
+
+  assert.equal(lines.length, 4);
+  assert.ok(lines.includes('E>seq act: 3, 1, 0'));
+  assert.ok(lines.includes('E>seq act: 3, 2, 1'));
+  assert.ok(lines.includes('E>seq act: 3, 4, 0'));
+});
+
+test('buildSyncGetReply includes sequence lines', () => {
+  const state = createControllerState();
+  state.setSequence(1, 3, true);
+  const reply = buildSyncGetReply(1, state, EOM);
+  assert.ok(reply.includes('E>seq act: 1, 3, 1'));
 });

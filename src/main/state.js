@@ -1,15 +1,15 @@
-const ZONE_COUNT = 16;
-
 export function createControllerState() {
   // Map<space, { zones: Map<zone, value>, off: boolean, preset: value, sequence: value }>
   const spaces = new Map();
 
   function createSpace() {
     const zones = new Map();
-    for (let z = 1; z <= ZONE_COUNT; z++) {
-      zones.set(z, 0);
-    }
-    return { zones, preset: 0, sequence: null };
+    for (let z = 1; z <= 16; z++) zones.set(z, 0);
+
+    const sequences = new Map();
+    for (let s = 1; s <= 4; s++) sequences.set(s, false);
+
+    return { zones, preset: 0, sequences };
   }
 
   /**
@@ -72,10 +72,16 @@ export function createControllerState() {
     return space;
   }
 
-  //TODO: unfinished
-  function setSequence(spaceId, sequence, active) {
+  /**
+   * SET command: activates or deactivates a given sequence
+   * @param {number} spaceId
+   * @param {number} seqId
+   * @param {boolean} active
+   * @returns
+   */
+  function setSequence(spaceId, seqId, active) {
     const space = getSpace(spaceId);
-    space.sequence = active ? sequence : null;
+    space.sequences.set(seqId, active);
     return space;
   }
 
