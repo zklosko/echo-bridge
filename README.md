@@ -1,19 +1,25 @@
 # Echo Bridge
 
-EchoBridge is a drop-in software replacement for ETC Echo's UDP control interface for local plugin development and testing.
+EchoBridge is a drop-in software replacement for ETC Echo's UDP control interface for local plugin development and testing without access to a live device. The software package includes a dashboard showing a live overview of all zones in each space with intensity fades in real time, which preset is active per space, and a full RX/TX log between plugins and the mock server.
 
-This project is still under active development. The future v1.0 release will include a finalized TUI, builds for Mac and Windows, and a full 1:1 compatible API. The current features have not been implemented:
+This project is still under active development. The following features have not been implemented yet:
 
-- Sequencing commands receiving
 - Ability to collapse space sync replies in the request log
+- Cleaning/consistency across the UI
+- Built-in updates
+- Builds for Mac
 
 ## Getting Started
 
-Head to releases to download the latest installer. Only Windows installers are being offered for the time being.
+### Windows installer
 
-Alternatively, clone the repo and run
+Head to [releases](https://github.com/zklosko/echo-bridge/releases) to download the latest installer.
+
+### From source
+
+Clone the repo and run the following in a Node 22+ enviornment.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
