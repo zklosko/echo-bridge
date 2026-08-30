@@ -1,6 +1,7 @@
-import Store from 'electron-store';
+import Conf from "conf";
 
-const store = new Store({
+const store = new Conf({
+  projectName: 'echo-server',
   defaults: {
     port: 4703,
     eom: '\r',

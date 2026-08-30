@@ -2,46 +2,18 @@
   "name": "echo-bridge",
   "version": "0.2.0",
   "description": "",
-  "main": "out/main/index.js",
+  "main": "cli.js",
   "scripts": {
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
-    "start": "electron-vite preview",
+    "start": "node cli.js",
     "format": "npx prettier . --write",
-    "test": "node --test",
-    "dist": "npm run build && electron-builder"
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/vite-plugin-svelte": "^6.2.4",
-    "electron": "^43.2.0",
-    "electron-builder": "^26.15.3",
-    "electron-vite": "^5.0.0",
-    "svelte-preprocess": "^6.0.5",
-    "vite": "^7.3.6"
-  },
   "dependencies": {
-    "electron-store": "^11.0.2",
+    "conf": "^15.1.0",
     "prettier": "^3.9.6"
-  },
-  "build": {
-    "appId": "com.zklosko.echobridge",
-    "productName": "Echo Bridge",
-    "files": [
-      "out/**/*"
-    ],
-    "win": {
-      "target": "nsis"
-    },
-    "mac": {
-      "target": "dmg"
-    },
-    "linux": {
-      "target": "AppImage"
-    }
   }
 }

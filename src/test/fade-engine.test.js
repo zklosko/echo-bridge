@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createControllerState } from '../main/state.js';
-import { FadeEngine } from '../main/fade-engine.js';
+import { createControllerState } from '../state.js';
+import { FadeEngine } from '../fade-engine.js';
 
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
