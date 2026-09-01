@@ -71,6 +71,7 @@ export class EchoServer extends EventEmitter {
     return this.#eom;
   }
   set eom(value) {
+    if (!value) throw new Error('eom must be a non-empty string')
     this.#eom = value;
   }
 
