@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createControllerState } from '../main/state.js';
+import { createControllerState } from '../state.js';
 import {
   buildHelpReply,
   buildOffGetReply,
@@ -8,7 +8,7 @@ import {
   buildZoneIntGetReply,
   buildSyncGetReply,
   buildSeqGetReply,
-} from '../main/reply-builder.js';
+} from '../reply-builder.js';
 
 const EOM = '\r';
 

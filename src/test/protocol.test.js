@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseCommand } from '../main/protocol.js';
+import { parseCommand } from '../protocol.js';
 
 test('parses pst act', () => {
   const result = parseCommand('E$pst act: 2, 12, 3.5');

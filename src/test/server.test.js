@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import dgram from 'node:dgram';
-import { EchoServer } from '../main/server.js';
+import { EchoServer } from '../server.js';
 
 const TEST_PORT = 18001; // fixed, unlikely-to-collide port for tests
 const EOM = '\r';
