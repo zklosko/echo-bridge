@@ -1,7 +1,7 @@
 {
-  "name": "echo-bridge",
+  "name": "@zklosko/echo-bridge",
   "version": "0.2.0",
-  "description": "",
+  "description": "ETC Echo simulator/host for driver development",
   "main": "cli.js",
   "scripts": {
     "start": "node cli.js",
@@ -9,13 +9,21 @@
     "test": "node --test"
   },
   "keywords": [],
-  "author": "",
+  "author": "Zachary Klosko",
   "license": "ISC",
   "type": "module",
+  "bin": {
+    "echo-bridge": "./cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "blessed": "^0.1.81",
     "commander": "^15.0.0",
-    "conf": "^15.1.0",
+    "conf": "^15.1.0"
+  },
+  "devDependencies": {
     "prettier": "^3.9.6"
   }
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import blessed from 'blessed'
 import { EchoServer } from './src/server.js'
 import { parseArgs } from './src/tui/args.js'
