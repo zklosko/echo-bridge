@@ -28,7 +28,7 @@ const spacesBox = blessed.log({
 })
 
 const zonesBox = blessed.box({
-    bottom: 2, left: '50%', width: '50%', height: 16 + 4,
+    top: 4, left: '50%', width: '50%', height: 16 + 4,
     border: 'line',
     tags: true
 })
