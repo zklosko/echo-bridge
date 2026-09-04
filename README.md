@@ -5,13 +5,12 @@ EchoBridge is a drop-in software replacement for ETC Echo's UDP control interfac
 This project is still under active development. The following features have not been implemented yet:
 
 - Cleaning/consistency across the UI
-- Recreating fade engine in TUI
 
 ## Getting Started
 
 ### NPM
 
-TBD. Requires Node 22+.
+Install globally using `npm i -g @zklosko/echo-bridge`, then run with `echo-bridge`. Requires Node 22+.
 
 ### From source
 
