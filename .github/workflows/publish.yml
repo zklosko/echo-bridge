@@ -1,0 +1,35 @@
+# .github/workflows/publish.yml
+name: Publish to npm and GitHub Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write   # needed for the GitHub Packages publish step
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          # No registry-url here on purpose — each publish step below
+          # sets its own registry via --registry, since this job talks
+          # to two different registries with two different tokens.
+
+      - run: npm ci
+
+      - name: Publish to npm
+        run: npm publish --registry=https://registry.npmjs.org --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: npm publish --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

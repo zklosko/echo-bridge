@@ -4,16 +4,14 @@ EchoBridge is a drop-in software replacement for ETC Echo's UDP control interfac
 
 This project is still under active development. The following features have not been implemented yet:
 
-- Ability to collapse space sync replies in the request log
 - Cleaning/consistency across the UI
-- Built-in updates
-- Builds for Mac
+- Recreating fade engine in TUI
 
 ## Getting Started
 
-### Windows installer
+### NPM
 
-Head to [releases](https://github.com/zklosko/echo-bridge/releases) to download the latest installer.
+TBD. Requires Node 22+.
 
 ### From source
 
@@ -21,5 +19,5 @@ Clone the repo and run the following in a Node 22+ enviornment.
 
 ```bash
 npm ci
-npm run dev
+npm run start
 ```
