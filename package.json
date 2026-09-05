@@ -1,6 +1,6 @@
 {
   "name": "@zklosko/echo-bridge",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "ETC Echo simulator/host for driver development",
   "main": "cli.js",
   "scripts": {
@@ -8,7 +8,11 @@
     "format": "npx prettier . --write",
     "test": "node --test"
   },
-  "keywords": [],
+  "keywords": [
+    "av",
+    "lighting",
+    "test"
+  ],
   "author": "Zachary Klosko",
   "license": "ISC",
   "type": "module",
