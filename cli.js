@@ -22,7 +22,7 @@ const header = blessed.box({
     tags: true
 })
 
-const spacesBox = blessed.log({
+const spacesBox = blessed.box({
     top: 4, left: 0, width: '50%', height: 16 + 4,
     border: 'line', label: ' Spaces ',
     tags: true
@@ -73,8 +73,8 @@ function renderSpaces() {
   const rows = [];
   for (let id = 1; id <= 16; id++) {
     const space = host.state.getSpace(id);
-    const off = space.off ? 'Yes' : 'No';
-    const seq = (space.sequence ?? []).map(s => (s ? 1 : 0)).join(' ');
+    const off = host.state.isOff(id)
+    const seq = [...space.sequences.values()].map(s => (s ? 1 : 0)).join(' ');
     const line = `${col(id, 8)}${col(space.preset ?? 0, 9)}${col(off, 7)}${seq}`;
     rows.push(id === selected ? `{yellow-fg}${line}{/yellow-fg}` : line);
   }
