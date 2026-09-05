@@ -1,4 +1,4 @@
-import Conf from "conf";
+import Conf from 'conf';
 
 const store = new Conf({
   projectName: 'echo-server',
